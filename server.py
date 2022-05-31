@@ -51,17 +51,22 @@ while True:
       reply_data.extend(reply.r_error)
       reply_data.extend(reply.r_handle)
       if(int.from_bytes(request.r_type, "big") == 0): ## read request
+          print("received read request of lenth {0} from {1}".format(request.r_len.hex(), request.r_from.hex()))
           conn.sendall(reply_data)
           buf = bytearray()
           buf.extend(v_mem[int.from_bytes(request.r_from, "big"):int.from_bytes(request.r_from, "big")+int.from_bytes(request.r_len, "big")])
           conn.sendall(buf)
       if(int.from_bytes(request.r_type, "big") == 1): ## write request
+          print("received write request of lenth {0} from {1}".format(request.r_len.hex(), request.r_from.hex()))
           data = readAll(conn, int.from_bytes(request.r_len, "big"))
           v_mem[int.from_bytes(request.r_from, "big"):int.from_bytes(request.r_from, "big")+int.from_bytes(request.r_len, "big")] = data
           conn.sendall(reply_data)
       if(int.from_bytes(request.r_type, "big") == 2): ## close request
+          print("received close request")
           conn.close()
       if(int.from_bytes(request.r_type, "big") == 3):
+          print("received flush request")
           conn.sendall(reply_data)
       if(int.from_bytes(request.r_type, "big") == 4):
+          print("received trim request")
           conn.sendall(reply_data)
