@@ -11,7 +11,8 @@ print "Connection on {}".format(port)
 
 f = open(sys.argv[1], "rw")
 
-## TODO add the good ioctl 
-fcntl.ioctl(0, termios.TIOCGPGRP, buf, 1)
-fcntl.ioctl(0, termios.TIOCGPGRP, buf, 1)
-fcntl.ioctl(0, termios.TIOCGPGRP, buf, 1)
+## TODO add the good ioctl
+fcntl.ioctl(f, termios.NBD_SET_SIZE, 134217728)
+fcntl.ioctl(f, termios.NBD_CLEAR_SOCK)
+fcntl.ioctl(f, termios.NBD_SET_SOCK, socket)
+fcntl.ioctl(f, termios.NBD_DO_IT)
