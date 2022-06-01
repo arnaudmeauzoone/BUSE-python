@@ -3,10 +3,10 @@
 import socket, fcntl, os, sys, termios
 
 hote = sys.argv[2]
-# port = sys.argv[3]
+port = int(sys.argv[3])
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.connect((hote, 15555))
+socket.connect((hote, port))
 print("Connection on {}".format(hote))
 
 f = open(sys.argv[1], "w+")

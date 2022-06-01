@@ -1,9 +1,6 @@
 #!/usr/bin/python
 
 import socket
-import os, os.path
-import time
-from collections import deque
 
 v_mem = bytearray(b'\x00'*134217728)
 
@@ -36,6 +33,7 @@ server.bind(('', 15555))
 while True:
   server.listen(1)
   conn, addr = server.accept()
+  print("received conn from {0}".format(addr))
   while True:
     data = conn.recv(28)
     if data:
